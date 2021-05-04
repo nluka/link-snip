@@ -1,0 +1,28 @@
+{
+  "name": "urly",
+  "version": "1.0.0",
+  "description": "A URL shortener.",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nluka/urly.git"
+  },
+  "keywords": [],
+  "author": "Nicholas Lukasevich",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nluka/urly/issues"
+  },
+  "homepage": "https://github.com/nluka/urly#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.25.0",
+    "nodemon": "^2.0.7"
+  }
+}
