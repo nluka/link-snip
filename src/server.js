@@ -1,6 +1,6 @@
-const app = require('./app');
+const util = require('../scripts/util');
 const mongoose = require('mongoose');
-const util = require('./scripts/util');
+const app = require('./app');
 
 if (!util.isEnvironmentProduction()) {
   require('dotenv').config();
@@ -10,19 +10,19 @@ if (!util.isEnvironmentProduction()) {
 
 const PORT = process.env.PORT || 3000;
 
-/**
- * Connects to the MongoDB database, then starts the Express server
- */
-(async function () {
-  try {
-    mongoose.connection.once('open', () => console.log('Database connection open'));
-    await mongoose.connect(process.env.DATABASE_URL);
-    await app.listen(PORT, () => {
-      console.log('Listening...');
-    });
-  } catch (err) {
+mongoose.connection.once('open', () => console.log('database connection established'));
+
+// Connect to database, then start the Express server
+mongoose
+  .connect(process.env.DATABASE_URL, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  })
+  .then(() => {
+    app.listen(PORT, () => console.log(`url-y is running on port ${PORT}`));
+  })
+  .catch((err) => {
     console.error(err);
-  }
-})();
+  });
 
 /* eslint-disable no-undef */

@@ -1,8 +1,8 @@
 {
-  "name": "urly",
+  "name": "url-y",
   "version": "1.0.0",
   "description": "A URL shortener.",
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
@@ -13,7 +13,7 @@
     "url": "git+https://github.com/nluka/urly.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Nicholas Lukasevich",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/nluka/urly/issues"
