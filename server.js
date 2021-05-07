@@ -15,14 +15,15 @@ const createRouter = require('./routes/create');
 
 const app = express();
 
+//#region Database
 mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
 const dataBase = mongoose.connection;
 dataBase.on('error', (error) => console.error(error));
 dataBase.once('open', () => console.log('Connected to Mongoose'));
+//#endregion
 
 //#region Middlewares
 app.set('view engine', 'ejs');
