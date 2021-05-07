@@ -1,39 +1,46 @@
+/* eslint-disable no-undef */
+
+const util = require('./util');
+
+if (!util.isEnvironmentProduction()) {
+  require('dotenv').parse();
+}
+
 const express = require('express');
 const mongoose = require('mongoose');
-const urlSchema = require('./models/url');
 const cors = require('cors');
+const expressLayouts = require('express-ejs-layouts');
+const indexRouter = require('./routes/index');
+const createRouter = require('./routes/create');
+
 const app = express();
 
-mongoose.connect('mongodb://localhost/db', {
-  // TODO: fix connection error
+mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 });
 
+const dataBase = mongoose.connection;
+dataBase.on('error', (error) => console.error(error));
+dataBase.once('open', () => console.log('Connected to Mongoose'));
+
+//#region Middlewares
 app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
+app.set('layout', 'layouts/layout');
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
+app.use(expressLayouts);
+app.use(express.static('public'));
+//#endregion
 
-// eslint-disable-next-line no-unused-vars
-app.get('/', async (req, res) => {
-  const urls = await urlSchema.find();
-  console.log(urls);
-});
+//#region Routes
+app.use('/', indexRouter);
+app.use('/create', createRouter);
+//#endregion
 
-app.post('/create', async (req, res) => {
-  const requestBody = req.body;
-
-  // TODO: check if shortUrl already exists and return error if it does
-
-  await urlSchema.create({
-    full: requestBody.fullUrl,
-    short: requestBody.shortUrl
-  });
-
-  res.redirect('/');
-});
-
-// eslint-disable-next-line no-undef
 const port = process.env.PORT || 3000;
 
 app.listen(port);
+
+/* eslint-enable no-undef */
