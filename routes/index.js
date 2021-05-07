@@ -1,9 +1,9 @@
 const express = require('express');
-const urlSchema = require('./models/url');
+const Url = require('../models/Url');
 
 const router = express.Router();
 
 module.exports = router.get('/', async (req, res) => {
-  const urls = await urlSchema.find();
+  const urls = await Url.find();
   res.json(urls);
 });

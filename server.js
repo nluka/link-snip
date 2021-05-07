@@ -3,7 +3,7 @@
 const util = require('./util');
 
 if (!util.isEnvironmentProduction()) {
-  require('dotenv').parse();
+  require('dotenv').config();
 }
 
 const express = require('express');
@@ -29,7 +29,7 @@ dataBase.once('open', () => console.log('Connected to Mongoose'));
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 app.set('layout', 'layouts/layout');
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(cors());
 app.use(expressLayouts);
 app.use(express.static('public'));
@@ -42,6 +42,8 @@ app.use('/create', createRouter);
 
 const port = process.env.PORT || 3000;
 
-app.listen(port);
+app.listen(port, () => {
+  console.log('Listening...');
+});
 
 /* eslint-enable no-undef */
