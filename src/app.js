@@ -4,6 +4,7 @@ const expressLayouts = require('express-ejs-layouts');
 const handleError = require('./handleError');
 const indexRouter = require('./routes/index');
 const createRouter = require('./routes/create');
+const deleteRouter = require('./routes/delete');
 
 const app = express();
 
@@ -23,5 +24,6 @@ app.use(handleError);
 // Routes
 app.use('/', indexRouter);
 app.use('/create', createRouter);
+app.use('/delete', deleteRouter);
 
 module.exports = app;
