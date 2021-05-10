@@ -24,5 +24,9 @@ module.exports = router.post('/', async (req, res, next) => {
 
   await newUrl.save();
 
-  res.status(statusCode.CREATED);
+  res.status(statusCode.CREATED).json({
+    shortUrl: newUrl.short,
+    fullUrl: newUrl.full,
+    clicks: newUrl.clicks,
+  });
 });
