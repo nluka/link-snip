@@ -5,6 +5,7 @@ const handleError = require('./handleError');
 const indexRouter = require('./routes/index');
 const createRouter = require('./routes/create');
 const deleteRouter = require('./routes/delete');
+const patchRouter = require('./routes/patch');
 
 const app = express();
 
@@ -25,5 +26,6 @@ app.use(handleError);
 app.use('/', indexRouter);
 app.use('/create', createRouter);
 app.use('/delete', deleteRouter);
+app.use('/patch', patchRouter);
 
 module.exports = app;
