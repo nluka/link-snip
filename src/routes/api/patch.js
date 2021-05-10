@@ -2,6 +2,7 @@ const express = require('express');
 const Url = require('../../models/Url');
 const createError = require('http-errors');
 const statusCode = require('../../status-code');
+const { doesShortUrlExist } = require('../../util');
 
 const router = express.Router();
 
@@ -19,6 +20,9 @@ module.exports = router.patch('/', async (req, res, next) => {
     return next(
       createError(statusCode.BAD_REQUEST, 'Neither newShortUrl nor newFullUrl were provided, at least 1 is required.')
     );
+  }
+  if (req.body.newShortUrl !== undefined && (await doesShortUrlExist(req.body.shortUrl))) {
+    return next(createError(statusCode.CONFLICT, 'shortUrl already exists.'));
   }
 
   if (req.body.newShortUrl !== undefined) {
