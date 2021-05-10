@@ -1,13 +1,20 @@
 const express = require('express');
 const Url = require('../models/Url');
+const createError = require('http-errors');
+const statusCode = require('./status-code');
 
 const router = express.Router();
 
-module.exports = router.post('/', async (req, res) => {
-  // TODO: check if shortUrl already exists and return error if it does
-
-  // eslint-disable-next-line
-  console.log(req.body.fullUrl, req.body.shortUrl);
+module.exports = router.post('/', async (req, res, next) => {
+  if (req.body.fullUrl === undefined) {
+    return next(createError(statusCode.UNPROCESSABLE_ENTITY, 'fullUrl is required.'));
+  }
+  if (req.body.shortUrl === undefined) {
+    return next(createError(statusCode.UNPROCESSABLE_ENTITY, 'shortUrl is required.'));
+  }
+  if (doesShortUrlAlreadyExist(req.body.shortUrl)) {
+    return next(createError(statusCode.CONFLICT, 'shortUrl already exists.'));
+  }
 
   const newUrl = new Url({
     full: req.body.fullUrl,
@@ -16,5 +23,9 @@ module.exports = router.post('/', async (req, res) => {
 
   await newUrl.save();
 
-  res.redirect('/');
+  res.status(statusCode.CREATED);
 });
+
+function doesShortUrlAlreadyExist(shortUrl) {
+  return Url.findOne({ short: shortUrl }) !== null;
+}
