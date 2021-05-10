@@ -1,4 +1,4 @@
-const util = require('../scripts/util');
+const util = require('./util');
 const mongoose = require('mongoose');
 const app = require('./app');
 

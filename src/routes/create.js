@@ -1,7 +1,8 @@
 const express = require('express');
 const Url = require('../models/Url');
 const createError = require('http-errors');
-const statusCode = require('./status-code');
+const statusCode = require('../status-code');
+const { doesShortUrlExist } = require('../util');
 
 const router = express.Router();
 
@@ -12,7 +13,7 @@ module.exports = router.post('/', async (req, res, next) => {
   if (req.body.shortUrl === undefined) {
     return next(createError(statusCode.UNPROCESSABLE_ENTITY, 'shortUrl is required.'));
   }
-  if (doesShortUrlAlreadyExist(req.body.shortUrl)) {
+  if (await doesShortUrlExist(req.body.shortUrl)) {
     return next(createError(statusCode.CONFLICT, 'shortUrl already exists.'));
   }
 
@@ -25,7 +26,3 @@ module.exports = router.post('/', async (req, res, next) => {
 
   res.status(statusCode.CREATED);
 });
-
-function doesShortUrlAlreadyExist(shortUrl) {
-  return Url.findOne({ short: shortUrl }) !== null;
-}
