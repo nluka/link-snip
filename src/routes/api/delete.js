@@ -1,7 +1,7 @@
 const express = require('express');
-const Url = require('../models/Url');
+const Url = require('../../models/Url');
 const createError = require('http-errors');
-const statusCode = require('../status-code');
+const statusCode = require('../../status-code');
 
 const router = express.Router();
 
