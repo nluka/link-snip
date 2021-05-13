@@ -8,6 +8,7 @@ module.exports = router.get('/', async (req, res) => {
   const responseJson = [];
   urls.forEach((url) => {
     responseJson.push({
+      name: url.name,
       full: url.full,
       short: url.short,
       clicks: url.clicks,
