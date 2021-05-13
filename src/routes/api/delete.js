@@ -19,6 +19,7 @@ module.exports = router.delete('/', async (req, res, next) => {
   await url.deleteOne();
 
   res.status(statusCode.OK).json({
+    name: url.name,
     full: url.full,
     short: url.short,
     clicks: url.clicks,

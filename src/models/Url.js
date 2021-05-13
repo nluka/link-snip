@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const urlSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
   full: {
     type: String,
     required: true,
