@@ -1,9 +1,9 @@
 /**
- * Middleware that sends error response.
+ * Middleware that sends error response to client.
  * @param {HTTP Error} error The error object (from the http-errors package), containing a status and message.
  * @param {HTTP Request} req The request object given by Express.
  * @param {HTTP Response} res The response object given by Express.
- * @param {HTTP Response} res The next middleware function given by Express.
+ * @param {HTTP Response} res The next middleware given by Express.
  */
 // eslint-disable-next-line no-unused-vars
 module.exports = function handleError(error, req, res, next) {
