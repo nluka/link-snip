@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const expressLayouts = require('express-ejs-layouts');
 const handleError = require('./handleError');
+
+const shortUrlRouter = require('./routes/shortUrl');
 const apiIndexRouter = require('./routes/api/index');
 const apiCreateRouter = require('./routes/api/create');
 const apiDeleteRouter = require('./routes/api/delete');
@@ -23,9 +25,9 @@ app.use(expressLayouts);
 app.use(handleError);
 
 // Routes
+app.use('/', shortUrlRouter);
 app.use('/api/', apiIndexRouter);
 app.use('/api/create', apiCreateRouter);
 app.use('/api/delete', apiDeleteRouter);
 app.use('/api/patch', apiPatchRouter);
-
 module.exports = app;
