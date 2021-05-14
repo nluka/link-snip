@@ -16,6 +16,7 @@ A URL shortener with a REST api and front-end. Built with Node.js, Express, and 
   // An array of the currently held URLs
   [
     {
+      "name": String
       "shortUrl": String
       "fullUrl": String
       "clicks": Number
@@ -42,6 +43,7 @@ A URL shortener with a REST api and front-end. Built with Node.js, Express, and 
 ```ts
   // The new item
   {
+    "name": String
     "shortUrl": String
     "fullUrl": String
     "clicks": 0
@@ -69,6 +71,7 @@ A URL shortener with a REST api and front-end. Built with Node.js, Express, and 
 ```ts
   // The updated item
   {
+    "name": String
     "shortUrl": String
     "fullUrl": String
     "clicks": Number
@@ -92,6 +95,7 @@ A URL shortener with a REST api and front-end. Built with Node.js, Express, and 
 ```ts
   // The deleted item
   {
+    "name": String
     "shortUrl": String
     "fullUrl": String
     "clicks": Number
