@@ -1,6 +1,6 @@
 const express = require('express');
-const Url = require('../models/Url');
-const statusCode = require('../status-code');
+const Url = require('../../models/Url');
+const statusCode = require('../../status-code');
 
 const router = express.Router();
 
@@ -9,6 +9,8 @@ module.exports = router.get('/:shortUrl', async (req, res) => {
   if (url === null) {
     res.status(statusCode.NOT_FOUND);
   } else {
+    url.clicks++;
+    await url.save();
     res.redirect(url.full);
   }
 });

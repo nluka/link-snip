@@ -3,8 +3,9 @@ const cors = require('cors');
 const handleError = require('./handleError');
 
 const indexRouter = require('./routes/index');
-const shortUrlRouter = require('./routes/shortUrl');
-const apiIndexRouter = require('./routes/api/index');
+const shortUrlRouter = require('./routes/short/shortUrl');
+const apiRootRouter = require('./routes/api/root');
+const apiGetRouter = require('./routes/api/get');
 const apiCreateRouter = require('./routes/api/create');
 const apiDeleteRouter = require('./routes/api/delete');
 const apiPatchRouter = require('./routes/api/patch');
@@ -19,14 +20,17 @@ app.set('views', __dirname + '/views');
 // Middlewares
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public'));
+// eslint-disable-next-line no-undef
+app.use(express.static(__dirname + '/public'));
 app.use(handleError);
 
 // Routes
 app.use('/', indexRouter);
-app.use('/', shortUrlRouter);
-app.use('/api/', apiIndexRouter);
+app.use('/short/', shortUrlRouter);
+app.use('/api/', apiRootRouter);
+app.use('/api/get', apiGetRouter);
 app.use('/api/create', apiCreateRouter);
 app.use('/api/delete', apiDeleteRouter);
 app.use('/api/patch', apiPatchRouter);
+
 module.exports = app;
