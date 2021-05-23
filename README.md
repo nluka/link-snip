@@ -1,8 +1,21 @@
 # url-y
 
-A URL shortener with a REST api and front-end. Built with Node.js, Express, and MongoDB.
+A URL shortener with a REST api and front-end (coming soon). Built with Node.js, Express, and MongoDB.
 
-## API
+- [Servers](#servers)
+- [API Reference](#api-reference)
+  - [Get all shortened URLs](#get-all-shortened-urls)
+  - [Add new URL](#add-new-url)
+  - [Update existing URL](#update-existing-url)
+  - [Delete existing URL](#delete-existing-url)
+
+## Servers
+
+| Name       | URL                                                          | Description                                                                                                                 |
+| ---------- | ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| Production | [https://url-y.herokuapp.com/](https://url-y.herokuapp.com/) | The primary server. Note that it may take some time to respond to the first call, as the free heroku server is starting up. |
+
+## API Reference
 
 ### Get all shortened URLs
 
