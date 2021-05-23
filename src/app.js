@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const handleError = require('./handleError');
 
-const indexRouter = require('./routes/index');
+// const indexRouter = require('./routes/index');
 const shortUrlRouter = require('./routes/short/shortUrl');
 const apiRootRouter = require('./routes/api/root');
 const apiGetRouter = require('./routes/api/get');
@@ -25,7 +25,8 @@ app.use(express.static(__dirname + '/public'));
 app.use(handleError);
 
 // Routes
-app.use('/', indexRouter);
+// app.use('/', indexRouter);
+app.use('/', apiRootRouter);
 app.use('/short/', shortUrlRouter);
 app.use('/api/', apiRootRouter);
 app.use('/api/get', apiGetRouter);
