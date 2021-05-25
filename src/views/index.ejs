@@ -4,9 +4,53 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Url-Y</title>
+    <title>url-y</title>
   </head>
   <body>
-    <div>Test</div>
+    <header>
+      <div class="site-name">url-y</div>
+      <a href="#github-repo">Github Repo</a>
+    </header>
+    <main>
+      <form action="/api/create" method="POST">
+        <fieldset>
+          <legend>Create new shortened URL</legend>
+          <label for="nameInput" aria-required="true">Name</label>
+          <input type="text" name="name" id="name" required />
+          <label for="fullUrlInput" aria-required="true">Full URL</label>
+          <input type="text" name="fullUrl" id="fullUrlInput" required />
+          <label for="shortUrlInput" aria-required="true">Short URL</label>
+          <input type="text" name="shortUrl" id="shortUrlInput" required />
+          <button type="submit">Create</button>
+        </fieldset>
+      </form>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Full URL</th>
+            <th>Short URL</th>
+            <th>Clicks</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% urls.forEach(url => { %>
+          <tr>
+            <td class="url-name-cell"><%= url.name %></td>
+            <td class="url-full-cell">
+              <a href="<%= url.full %>"><%= url.full %></a>
+            </td>
+            <td class="url-short-cell"><%= url.short %></td>
+            <td><%= url.clicks %></td>
+            <td class="url-actions-cell">
+              <button class="url-edit-button">Edit</button>
+              <button class="url-delete-button">Delete</button>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </main>
   </body>
 </html>

@@ -8,9 +8,11 @@ if (!util.isEnvironmentProduction()) {
 
 /* eslint-disable no-undef */
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
-mongoose.connection.once('open', () => console.log('database connection established'));
+mongoose.connection.once('open', () =>
+  console.log('database connection established')
+);
 
 // Connect to database, then start the Express server
 mongoose
