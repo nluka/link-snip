@@ -20,28 +20,28 @@ A URL shortener with a REST api and front-end (coming soon). Built with Node.js,
 ### Get all shortened URLs
 
 ```HTTP
-  GET /api/
+GET /api/
 ```
 
 #### Response
 
 ```ts
-  // An array of the currently held URLs
-  [
-    {
-      "name": String
-      "shortUrl": String
-      "fullUrl": String
-      "clicks": Number
-    },
-    ...
-  ]
+// An array of the currently held URLs
+[
+  {
+    "name": String
+    "shortUrl": String
+    "fullUrl": String
+    "clicks": Number
+  },
+  ...
+]
 ```
 
 ### Add new URL
 
 ```HTTP
-  POST /api/create
+POST /api/create
 ```
 
 #### Query parameters
@@ -54,19 +54,19 @@ A URL shortener with a REST api and front-end (coming soon). Built with Node.js,
 #### Response
 
 ```ts
-  // The new item
-  {
-    "name": String
-    "shortUrl": String
-    "fullUrl": String
-    "clicks": 0
-  }
+// The new item
+{
+  "name": String
+  "shortUrl": String
+  "fullUrl": String
+  "clicks": 0
+}
 ```
 
 ### Update existing URL
 
 ```HTTP
-  PATCH /api/update
+PATCH /api/update
 ```
 
 #### Query parameters
@@ -82,19 +82,19 @@ A URL shortener with a REST api and front-end (coming soon). Built with Node.js,
 #### Response
 
 ```ts
-  // The updated item
-  {
-    "name": String
-    "shortUrl": String
-    "fullUrl": String
-    "clicks": Number
-  }
+// The updated item
+{
+  "name": String
+  "shortUrl": String
+  "fullUrl": String
+  "clicks": Number
+}
 ```
 
 ### Delete existing URL
 
 ```HTTP
-  DELETE /api/delete
+DELETE /api/delete
 ```
 
 #### Query parameters
@@ -106,11 +106,11 @@ A URL shortener with a REST api and front-end (coming soon). Built with Node.js,
 #### Response
 
 ```ts
-  // The deleted item
-  {
-    "name": String
-    "shortUrl": String
-    "fullUrl": String
-    "clicks": Number
-  }
+// The deleted item
+{
+  "name": String
+  "shortUrl": String
+  "fullUrl": String
+  "clicks": Number
+}
 ```
