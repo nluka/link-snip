@@ -21,7 +21,7 @@ app.set('views', __dirname + '/views');
 app.use(cors());
 app.use(express.json());
 // eslint-disable-next-line no-undef
-app.use(express.static(__dirname + '/public'));
+app.use(express.static('public'));
 app.use(handleError);
 
 // Routes
