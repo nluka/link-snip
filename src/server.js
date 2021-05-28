@@ -1,4 +1,5 @@
 const util = require('./util');
+const { DEV_PORT } = require('./constants');
 const mongoose = require('mongoose');
 const app = require('./app');
 
@@ -8,7 +9,7 @@ if (!util.isEnvironmentProduction()) {
 
 /* eslint-disable no-undef */
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || DEV_PORT;
 
 mongoose.connection.once('open', () =>
   console.log('database connection established')
