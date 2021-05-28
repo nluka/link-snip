@@ -8,13 +8,19 @@ const router = express.Router();
 
 module.exports = router.post('/', async (req, res, next) => {
   if (req.body.name === undefined) {
-    return next(createError(statusCode.UNPROCESSABLE_ENTITY, 'name is required.'));
+    return next(
+      createError(statusCode.UNPROCESSABLE_ENTITY, 'name is required.')
+    );
   }
   if (req.body.fullUrl === undefined) {
-    return next(createError(statusCode.UNPROCESSABLE_ENTITY, 'fullUrl is required.'));
+    return next(
+      createError(statusCode.UNPROCESSABLE_ENTITY, 'fullUrl is required.')
+    );
   }
   if (req.body.shortUrl === undefined) {
-    return next(createError(statusCode.UNPROCESSABLE_ENTITY, 'shortUrl is required.'));
+    return next(
+      createError(statusCode.UNPROCESSABLE_ENTITY, 'shortUrl is required.')
+    );
   }
   if (await doesShortUrlExist(req.body.shortUrl)) {
     return next(createError(statusCode.CONFLICT, 'shortUrl already exists.'));

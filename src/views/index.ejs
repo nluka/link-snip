@@ -23,7 +23,12 @@
     </header>
 
     <main class="container">
-      <form action="/api/create" method="POST" class="mb-4 mb-sm-5">
+      <form
+        action="/create"
+        method="POST"
+        enctype="application/x-www-form-urlencoded"
+        class="mb-4 mb-sm-5"
+      >
         <fieldset class="mb-3">
           <legend class="mb-3">Create new shortened URL</legend>
           <div class="row">
@@ -32,7 +37,7 @@
                 <input
                   type="text"
                   name="name"
-                  id="name"
+                  id="nameInput"
                   placeholder="Name"
                   required
                   class="form-control"
@@ -84,7 +89,7 @@
         </fieldset>
       </form>
 
-      <div class="table-wrapper table-responsive">
+      <div class="table-wrapper table-responsive shadow">
         <table class="table table-hover">
           <thead>
             <tr>

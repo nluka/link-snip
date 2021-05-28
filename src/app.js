@@ -3,6 +3,7 @@ const cors = require('cors');
 const handleError = require('./handleError');
 
 const indexRouter = require('./routes/index');
+const createRouter = require('./routes/create');
 const shortUrlRouter = require('./routes/short/shortUrl');
 const apiRootRouter = require('./routes/api/root');
 const apiGetRouter = require('./routes/api/get');
@@ -20,12 +21,13 @@ app.set('views', __dirname + '/views');
 // Middlewares
 app.use(cors());
 app.use(express.json());
-// eslint-disable-next-line no-undef
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(handleError);
 
 // Routes
 app.use('/', indexRouter);
+app.use('/create', createRouter);
 // app.use('/', apiRootRouter);
 app.use('/short/', shortUrlRouter);
 app.use('/api/', apiRootRouter);
