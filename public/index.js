@@ -38,9 +38,10 @@ buttonsUrlDelete.forEach((button) => {
           shortUrl,
         },
       });
-      location.reload();
     } catch (error) {
       console.error(error);
+    } finally {
+      location.reload();
     }
   });
 });
