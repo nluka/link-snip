@@ -14,9 +14,10 @@ const handleSubmit = async (event) => {
       newName: inputUrlName.value,
       newFullUrl: inputUrlFull.value,
     });
-    location.replace('/');
   } catch (error) {
     console.error(error);
+  } finally {
+    location.replace('/');
   }
 };
 
