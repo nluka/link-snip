@@ -12,6 +12,8 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="index.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
+    <script src="index.js" defer></script>
   </head>
   <body>
     <header class="mb-4 mb-sm-5">
@@ -23,12 +25,7 @@
     </header>
 
     <main class="container">
-      <form
-        action="/create"
-        method="POST"
-        enctype="application/x-www-form-urlencoded"
-        class="mb-4 mb-sm-5"
-      >
+      <form id="formUrlCreate" class="mb-4 mb-sm-5">
         <fieldset class="mb-3">
           <legend class="mb-3">Create new shortened URL</legend>
           <div class="row">
@@ -37,12 +34,12 @@
                 <input
                   type="text"
                   name="name"
-                  id="nameInput"
+                  id="inputUrlName"
                   placeholder="Name"
                   required
                   class="form-control"
                 />
-                <label for="nameInput" aria-required="true">Name</label>
+                <label for="inputUrlName" aria-required="true">Name</label>
               </div>
             </div>
 
@@ -51,12 +48,12 @@
                 <input
                   type="text"
                   name="fullUrl"
-                  id="fullUrlInput"
+                  id="inputUrlFull"
                   placeholder="Full URL"
                   required
                   class="form-control"
                 />
-                <label for="fullUrlInput" aria-required="true">Full URL</label>
+                <label for="inputUrlFull" aria-required="true">Full URL</label>
               </div>
             </div>
 
@@ -65,12 +62,12 @@
                 <input
                   type="text"
                   name="shortUrl"
-                  id="shortUrlInput"
+                  id="inputUrlShort"
                   placeholder="Short URL"
                   required
                   class="form-control mb-3"
                 />
-                <label for="shortUrlInput" aria-required="true"
+                <label for="inputUrlShort" aria-required="true"
                   >Short URL</label
                 >
               </div>
@@ -89,13 +86,14 @@
         </fieldset>
       </form>
 
-      <div class="table-wrapper table-responsive shadow">
+      <h2 class="mb-3">Stored URLs</h2>
+      <div class="table-wrapper table-responsive shadow-sm">
         <table class="table table-hover">
           <thead>
             <tr>
               <th>Name</th>
-              <th>Full-URL</th>
-              <th>Short-URL</th>
+              <th>Full URL</th>
+              <th>Short URL</th>
               <th>Clicks</th>
               <th class="td-url-action">Actions</th>
             </tr>
@@ -112,10 +110,16 @@
               </td>
               <td><%= url.clicks %></td>
               <td class="td-url-action">
-                <button class="button-url-edit btn btn-secondary m-1">
+                <button
+                  data-url-short="<%= url.short %>"
+                  class="button-url-edit btn btn-secondary m-1"
+                >
                   Edit
                 </button>
-                <button class="button-url-delete btn btn-danger m-1">
+                <button
+                  data-url-short="<%= url.short %>"
+                  class="button-url-delete btn btn-danger m-1"
+                >
                   Delete
                 </button>
               </td>

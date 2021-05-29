@@ -3,7 +3,6 @@ const cors = require('cors');
 const handleError = require('./handleError');
 
 const indexRouter = require('./routes/index');
-const createRouter = require('./routes/create');
 const shortUrlRouter = require('./routes/short/shortUrl');
 const apiRootRouter = require('./routes/api/root');
 const apiGetRouter = require('./routes/api/get');
@@ -27,8 +26,6 @@ app.use(handleError);
 
 // Routes
 app.use('/', indexRouter);
-app.use('/create', createRouter);
-// app.use('/', apiRootRouter);
 app.use('/short/', shortUrlRouter);
 app.use('/api/', apiRootRouter);
 app.use('/api/get', apiGetRouter);

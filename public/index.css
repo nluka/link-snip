@@ -4,6 +4,11 @@
   width: 100%;
 }
 
+h2 {
+  font-size: 24px;
+  font-weight: normal;
+}
+
 .table-wrapper {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
