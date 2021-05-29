@@ -1,3 +1,5 @@
+//#region form
+
 const formUrlCreate = document.getElementById('formUrlCreate');
 const inputUrlName = document.getElementById('inputUrlName');
 const inputUrlFull = document.getElementById('inputUrlFull');
@@ -18,6 +20,20 @@ const handleSubmit = async (event) => {
 };
 
 formUrlCreate.addEventListener('submit', handleSubmit);
+
+//#endregion
+
+const tdsUrlShort = document.querySelectorAll('.td-url-short');
+
+tdsUrlShort.forEach((td) => {
+  const divTextUrlShort = td.querySelector('.div-text-url-short');
+  const clipboardIcon = td.querySelector('.bi-clipboard');
+  clipboardIcon.addEventListener('click', () => {
+    navigator.clipboard.writeText(
+      `${location.href}short/${divTextUrlShort.innerText}`
+    );
+  });
+});
 
 const buttonsUrlEdit = document.querySelectorAll('.button-url-edit');
 
