@@ -2,7 +2,6 @@ const express = require('express');
 const Url = require('../../models/Url');
 const createError = require('http-errors');
 const statusCode = require('../../status-code');
-const { doesShortUrlExist } = require('../../util');
 
 const router = express.Router();
 

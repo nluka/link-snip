@@ -23,6 +23,18 @@ td {
   white-space: nowrap;
 }
 
+.div-container-url-short {
+  display: flex;
+}
+
+.div-text-url-short {
+  margin-right: 2.5%;
+}
+
+.bi-clipboard {
+  cursor: pointer;
+}
+
 .th-url-action,
 .td-url-action {
   width: 161px;
