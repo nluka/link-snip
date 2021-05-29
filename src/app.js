@@ -1,8 +1,10 @@
 const express = require('express');
+// const expressLayouts = require('express-ejs-layouts');
 const cors = require('cors');
 const handleError = require('./handleError');
 
 const indexRouter = require('./routes/index');
+const editRouter = require('./routes/edit/edit');
 const shortUrlRouter = require('./routes/short/shortUrl');
 const apiRootRouter = require('./routes/api/root');
 const apiGetRouter = require('./routes/api/get');
@@ -14,6 +16,7 @@ const app = express();
 
 // Settings
 app.set('view engine', 'ejs');
+// app.set('layout', './layouts/layout');
 // eslint-disable-next-line no-undef
 app.set('views', __dirname + '/views');
 
@@ -26,6 +29,7 @@ app.use(handleError);
 
 // Routes
 app.use('/', indexRouter);
+app.use('/edit/', editRouter);
 app.use('/short/', shortUrlRouter);
 app.use('/api/', apiRootRouter);
 app.use('/api/get', apiGetRouter);
