@@ -7,13 +7,17 @@ const router = express.Router();
 
 module.exports = router.delete('/', async (req, res, next) => {
   if (req.body.shortUrl === undefined) {
-    return next(createError(statusCode.UNPROCESSABLE_ENTITY, 'shortUrl is required.'));
+    return next(
+      createError(statusCode.UNPROCESSABLE_ENTITY, 'shortUrl is required.')
+    );
   }
 
   const url = await Url.findOne({ short: req.body.shortUrl });
 
   if (url === null) {
-    return next(createError(statusCode.UNPROCESSABLE_ENTITY, 'shortUrl does not exist.'));
+    return next(
+      createError(statusCode.UNPROCESSABLE_ENTITY, 'shortUrl does not exist.')
+    );
   }
 
   await url.deleteOne();
