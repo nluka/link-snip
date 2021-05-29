@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>url-y | Edit</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/edit/edit.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
+    <script src="/edit/edit.js" defer></script>
+  </head>
+  <body>
+    <%- include('./partials/header.ejs') %>
+    <main class="container">
+      <form id="formUrlPatch" class="mb-4 mb-sm-5">
+        <fieldset class="mb-3">
+          <legend class="mb-3">Edit shortened URL</legend>
+          <div class="row">
+            <div class="col-md-3 col-sm-12">
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  name="shortUrl"
+                  id="inputUrlShort"
+                  placeholder="Short URL"
+                  required
+                  class="form-control mb-3"
+                  value="<%= urlToEdit.short %>"
+                  disabled
+                />
+                <label for="inputUrlShort" aria-required="true"
+                  >Short URL</label
+                >
+              </div>
+            </div>
+
+            <div class="col-md-3 col-sm-12">
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  name="name"
+                  id="inputUrlName"
+                  placeholder="Name"
+                  required
+                  class="form-control"
+                  value="<%= urlToEdit.name %>"
+                />
+                <label for="inputUrlName" aria-required="true">Name</label>
+              </div>
+            </div>
+
+            <div class="col-md-3 col-sm-12">
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  name="fullUrl"
+                  id="inputUrlFull"
+                  placeholder="Full URL"
+                  required
+                  class="form-control"
+                  value="<%= urlToEdit.full %>"
+                />
+                <label for="inputUrlFull" aria-required="true">Full URL</label>
+              </div>
+            </div>
+
+            <div class="col-md-3 col-sm-12 d-flex">
+              <button type="submit" id="buttonUrlSave" class="btn btn-primary">
+                Save
+              </button>
+              <button id="buttonCancel" class="btn btn-danger">Cancel</button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </main>
+  </body>
+</html>
