@@ -3,10 +3,6 @@ const inputUrlName = document.getElementById('inputUrlName');
 const inputUrlFull = document.getElementById('inputUrlFull');
 const inputUrlShort = document.getElementById('inputUrlShort');
 
-// action = '/';
-// method = 'POST';
-// enctype = 'application/x-www-form-urlencoded';
-
 const handleSubmit = async (event) => {
   event.preventDefault();
   try {
@@ -26,7 +22,9 @@ formUrlCreate.addEventListener('submit', handleSubmit);
 const buttonsUrlEdit = document.querySelectorAll('.button-url-edit');
 
 buttonsUrlEdit.forEach((button) => {
-  button.addEventListener('click', async () => {});
+  button.addEventListener('click', async () => {
+    location.replace(`/edit/${button.getAttribute('data-url-short')}`);
+  });
 });
 
 const buttonsUrlDelete = document.querySelectorAll('.button-url-delete');
