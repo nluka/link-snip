@@ -12,7 +12,20 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="/index.css" />
+    <!-- <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous"
+      defer
+    ></script> -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
+      integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
+      crossorigin="anonymous"
+      defer
+    ></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
+    <!-- <script src="/tooltip.js" defer></script> -->
     <script src="/index.js" defer></script>
   </head>
   <body>
@@ -81,7 +94,7 @@
 
       <h2 class="mb-3">Stored URLs</h2>
       <div class="table-wrapper table-responsive shadow-sm">
-        <table class="table table-hover">
+        <table class="table">
           <thead>
             <tr>
               <th>Name</th>
@@ -100,8 +113,7 @@
               </td>
               <td class="td-url-short" onclick="e => console.log(e.target)">
                 <div class="div-container-url-short">
-                  <div class="div-text-url-short"><%= url.short %></div>
-                  <div class="div-svg-url-short">
+                  <button class="btn btn-light btn-url-short-copy">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -118,7 +130,8 @@
                         d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"
                       />
                     </svg>
-                  </div>
+                  </button>
+                  <div class="div-text-url-short"><%= url.short %></div>
                 </div>
               </td>
               <td><%= url.clicks %></td>
