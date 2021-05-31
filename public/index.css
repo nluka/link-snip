@@ -13,11 +13,9 @@ h2 {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
 }
-
 .table {
   margin-bottom: 0;
 }
-
 th,
 td {
   white-space: nowrap;
@@ -26,11 +24,19 @@ td {
 .div-container-url-short {
   display: flex;
 }
-
 .div-text-url-short {
-  margin-right: 2.5%;
+  align-items: center;
+  display: flex;
+  margin-left: 0.6rem;
 }
-
+.btn-url-short-copy {
+  border: 1px solid lightgray;
+  display: flex;
+  padding: 0.25rem;
+}
+.btn-url-short-copy:hover {
+  border-color: darkgray;
+}
 .bi-clipboard {
   cursor: pointer;
 }
