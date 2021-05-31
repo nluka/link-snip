@@ -74,7 +74,7 @@ PATCH /api/update
 | Parameter           | Type     | Description                    |
 | ------------------- | -------- | ------------------------------ |
 | shortUrl (required) | `string` | The shortened URL, must exist. |
-| \*newShortUrl       | `string` | The new short URL.             |
+| \*newName           | `string` | The new short name.            |
 | \*newfullUrl        | `string` | The new full URL.              |
 
 \*At least one tagged parameters must be provided.
