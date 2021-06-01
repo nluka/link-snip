@@ -1,6 +1,6 @@
 # url-y
 
-A URL shortener with a REST api and front-end (coming soon). Built with Node.js, Express, and MongoDB.
+A URL shortener with a REST api and front-end. Built with Node.js, Express, MongoDB, Bootstrap 5.
 
 - [Servers](#servers)
 - [API Reference](#api-reference)
@@ -26,7 +26,7 @@ GET /api/
 #### Response
 
 ```ts
-// An array of the currently held URLs
+// An array of the currently stored URLs
 [
   {
     "name": String
