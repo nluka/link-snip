@@ -9,6 +9,7 @@ h2 {
   font-weight: normal;
 }
 
+/* General table styles */
 .table-wrapper {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
@@ -21,6 +22,7 @@ td {
   white-space: nowrap;
 }
 
+/* Short URL table cell children */
 .div-container-url-short {
   display: flex;
 }
@@ -30,15 +32,25 @@ td {
   margin-left: 0.6rem;
 }
 .btn-url-short-copy {
+  background-image: url(./icons/clipboard.svg);
+  background-position: center;
+  background-repeat: no-repeat;
   border: 1px solid lightgray;
+  cursor: pointer;
   display: flex;
+  height: 24px;
   padding: 0.25rem;
+  width: 24px;
 }
-.btn-url-short-copy:hover {
+.btn-url-short-copy:hover,
+.btn-url-short-copy:focus {
   border-color: darkgray;
 }
-.bi-clipboard {
-  cursor: pointer;
+.btn-url-short-copy.copied {
+  background-color: rgba(40, 167, 69, 0.5);
+  background-image: url(./icons/clipboard-check.svg);
+  cursor: default;
+  transition: background-color, background-image 0.1 ease-in;
 }
 
 .th-url-action,
