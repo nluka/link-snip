@@ -8,6 +8,7 @@ const inputUrlShort = document.getElementById('inputUrlShort');
 const handleSubmit = async (event) => {
   event.preventDefault();
   try {
+    // eslint-disable-next-line no-undef
     await axios.post('/api/create', {
       name: inputUrlName.value,
       fullUrl: inputUrlFull.value,
@@ -23,6 +24,8 @@ formUrlCreate.addEventListener('submit', handleSubmit);
 
 //#endregion
 
+//#region table
+
 const tdsUrlShort = document.querySelectorAll('.td-url-short');
 
 tdsUrlShort.forEach((td) => {
@@ -31,6 +34,14 @@ tdsUrlShort.forEach((td) => {
   btnCopyToClipboard.addEventListener('click', () => {
     navigator.clipboard.writeText(
       `${location.href}short/${divTextUrlShort.innerText}`
+    );
+    btnCopyToClipboard.classList.add('copied');
+    btnCopyToClipboard.addEventListener(
+      'blur',
+      () => {
+        btnCopyToClipboard.classList.remove('copied');
+      },
+      { once: true }
     );
   });
 });
@@ -49,6 +60,7 @@ buttonsUrlDelete.forEach((button) => {
   button.addEventListener('click', async () => {
     const shortUrl = button.getAttribute('data-url-short');
     try {
+      // eslint-disable-next-line no-undef
       await axios.delete('/api/delete', {
         data: {
           shortUrl,
@@ -61,3 +73,5 @@ buttonsUrlDelete.forEach((button) => {
     }
   });
 });
+
+//#endregion

@@ -59,7 +59,7 @@ POST /api/create
   "name": String
   "shortUrl": String
   "fullUrl": String
-  "clicks": 0
+  "clicks": 0 // always starts at 0
 }
 ```
 
