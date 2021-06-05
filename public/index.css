@@ -1,3 +1,19 @@
+:root {
+  --red: #dc3545;
+}
+
+#inputUrlShort.invalid {
+  border-color: var(--red);
+}
+#divUrlShortFeedback {
+  color: var(--red);
+  display: none;
+  font-size: small;
+}
+#divUrlShortFeedback[data-visible='true'] {
+  display: block;
+}
+
 #buttonCreateUrl {
   font-size: 20px;
   height: 58px;
