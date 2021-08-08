@@ -13,7 +13,7 @@ A URL shortener with a REST api and front-end. Built with Node.js, Express, Mong
 
 | Name       | URL                                                          | Description                                                                                                                 |
 | ---------- | ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
-| Production | [https://url-y.herokuapp.com/](https://url-y.herokuapp.com/) | The primary server. Note that it may take some time to respond to the first call, as the free heroku server is starting up. |
+| Production | [https://link-snip.herokuapp.com/](https://link-snip.herokuapp.com/) | The primary server. Note that it may take some time to respond to the first call, as the free heroku server is starting up. |
 
 ## API Reference
 
@@ -29,10 +29,10 @@ GET /api/
 // An array of the currently stored URLs
 [
   {
-    "name": String
-    "shortUrl": String
-    "fullUrl": String
-    "clicks": Number
+    "name": string
+    "shortUrl": string
+    "fullUrl": string
+    "clicks": number
   },
   ...
 ]
@@ -56,10 +56,10 @@ POST /api/create
 ```ts
 // The new item
 {
-  "name": String
-  "shortUrl": String
-  "fullUrl": String
-  "clicks": 0 // always starts at 0
+  "name": string
+  "shortUrl": string
+  "fullUrl": string
+  "clicks": 0
 }
 ```
 
@@ -84,10 +84,10 @@ PATCH /api/update
 ```ts
 // The updated item
 {
-  "name": String
-  "shortUrl": String
-  "fullUrl": String
-  "clicks": Number
+  "name": string
+  "shortUrl": string
+  "fullUrl": string
+  "clicks": number
 }
 ```
 
@@ -108,9 +108,9 @@ DELETE /api/delete
 ```ts
 // The deleted item
 {
-  "name": String
-  "shortUrl": String
-  "fullUrl": String
-  "clicks": Number
+  "name": string
+  "shortUrl": string
+  "fullUrl": string
+  "clicks": number
 }
 ```
