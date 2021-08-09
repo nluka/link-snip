@@ -1,18 +1,15 @@
 const express = require('express');
 const database = require('../../database');
-const isValidHttpUrl = require('../../utilities/isValidHttpUrl');
 const STATUS_CODES = require('../../utilities/status-codes');
+const pushActualErrors = require('../../validators/pushActualErrors');
+const pushNameErrors = require('../../validators/pushNameErrors');
+const { pushShortErrors } = require('../../validators/pushShortErrors');
 
 const router = express.Router();
 
 router.patch('/', async (req, res, next) => {
   const errors = [];
-  await pushPatchErrors(
-    req.body.short,
-    req.body.newName,
-    req.body.newActual,
-    errors
-  );
+  await pushPatchErrors(req.body.short, req.body.name, req.body.actual, errors);
   if (errors.length > 0) {
     return next({ status: STATUS_CODES.BAD_REQUEST, data: { errors } });
   }
@@ -21,8 +18,8 @@ router.patch('/', async (req, res, next) => {
   try {
     patchedUrl = await database.urlPatch(
       req.body.short,
-      req.body.newName,
-      req.body.newActual
+      req.body.name,
+      req.body.actual
     );
   } catch (err) {
     return next({});
@@ -31,30 +28,20 @@ router.patch('/', async (req, res, next) => {
   res.status(STATUS_CODES.OK).json(patchedUrl);
 });
 
-async function pushPatchErrors(short, newName, newActual, errors) {
-  if (typeof short !== 'string') {
-    errors.push('short must be a string');
-  } else if (!(await database.urlDoesShortExist(short))) {
-    errors.push('short already exists');
-  }
-
-  if (newName === undefined && newActual === undefined) {
-    errors.push('at least one of newName or newActual must be provided');
+async function pushPatchErrors(short, name, actual, errors) {
+  if (name === undefined && actual === undefined) {
+    errors.push('name and or actual must be provided');
     return;
   }
 
-  if (newName !== undefined) {
-    if (typeof newName !== 'string') {
-      errors.push('newName must be a string');
-    }
+  await pushShortErrors(short, errors, { existenceComparer: false });
+
+  if (name !== undefined) {
+    pushNameErrors(name, errors);
   }
 
-  if (newActual !== undefined) {
-    if (typeof newActual !== 'string') {
-      errors.push('newActual must be a string');
-    } else if (!isValidHttpUrl(newActual)) {
-      errors.push('newActual must be a valid HTTP URL');
-    }
+  if (actual !== undefined) {
+    pushActualErrors(actual, errors);
   }
 }
 

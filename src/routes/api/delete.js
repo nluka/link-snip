@@ -1,6 +1,7 @@
 const express = require('express');
 const STATUS_CODES = require('../../utilities/status-codes');
 const database = require('../../database');
+const { pushShortErrors } = require('../../validators/pushShortErrors');
 
 const router = express.Router();
 
@@ -17,11 +18,8 @@ router.delete('/', async (req, res, next) => {
 });
 
 async function pushDeleteErrors(short, errors) {
-  if (typeof short !== 'string') {
-    errors.push('short must be a string');
-  } else if (!(await database.urlDoesShortExist(short))) {
-    errors.push("short doesn't exist");
-  }
+  await pushShortErrors(short, errors, { existenceComparer: false });
+  console.log(errors);
 }
 
 module.exports = router;

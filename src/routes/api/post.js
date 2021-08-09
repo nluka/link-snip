@@ -1,7 +1,9 @@
 const express = require('express');
 const database = require('../../database');
-const isValidHttpUrl = require('../../utilities/isValidHttpUrl');
 const STATUS_CODES = require('../../utilities/status-codes');
+const pushNameErrors = require('../../validators/pushNameErrors');
+const pushActualErrors = require('../../validators/pushActualErrors');
+const { pushShortErrors } = require('../../validators/pushShortErrors');
 
 const router = express.Router();
 
@@ -27,19 +29,9 @@ router.post('/', async (req, res, next) => {
 });
 
 async function pushCreateErrors(name, actual, short, errors) {
-  if (typeof name !== 'string') {
-    errors.push('name must be a string');
-  }
-  if (typeof actual !== 'string') {
-    errors.push('actual must be a string');
-  } else if (!isValidHttpUrl(actual)) {
-    errors.push('actual must be a valid HTTP URL');
-  }
-  if (typeof short !== 'string') {
-    errors.push('short must be a string');
-  } else if (await database.urlDoesShortExist(short)) {
-    errors.push('short already exists');
-  }
+  pushNameErrors(name, errors);
+  pushActualErrors(actual, errors);
+  await pushShortErrors(short, errors);
 }
 
 module.exports = router;
