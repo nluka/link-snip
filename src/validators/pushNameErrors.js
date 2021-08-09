@@ -1,4 +1,4 @@
-const nameRegex = /^[a-zA-Z0-9]{1,32}$/;
+const nameRegex = /^[a-zA-Z0-9 ]{1,32}$/;
 
 module.exports = function pushNameErrors(name, errors) {
   if (typeof name !== 'string') {
