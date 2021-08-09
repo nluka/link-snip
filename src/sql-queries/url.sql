@@ -1,7 +1,7 @@
 create table urls (
-  name varchar(255) not null,
-  actual varchar(255) not null,
-  short varchar(255) not null,
+  name varchar(32) not null,
+  actual varchar(512) not null,
+  short varchar(8) not null,
   clicks int default 0,
   primary key (short)
 );
