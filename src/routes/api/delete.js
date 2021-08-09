@@ -1,5 +1,4 @@
 const express = require('express');
-const { doesShortExist } = require('../../database');
 const STATUS_CODES = require('../../utilities/status-codes');
 const database = require('../../database');
 
@@ -12,25 +11,15 @@ router.delete('/', async (req, res, next) => {
     return next({ status: STATUS_CODES.BAD_REQUEST, data: { errors } });
   }
 
-  const result = await database.query(
-    'delete from urls where (short = $1) returning *;',
-    [req.body.short]
-  );
+  const deletedUrl = await database.urlDelete(req.body.short);
 
-  const { name, actual, short, clicks } = result.rows[0];
-
-  res.status(STATUS_CODES.OK).json({
-    name,
-    actual,
-    short,
-    clicks,
-  });
+  res.status(STATUS_CODES.OK).json(deletedUrl);
 });
 
 async function pushDeleteErrors(short, errors) {
   if (typeof short !== 'string') {
     errors.push('short must be a string');
-  } else if (!(await doesShortExist(short))) {
+  } else if (!(await database.urlDoesShortExist(short))) {
     errors.push("short doesn't exist");
   }
 }

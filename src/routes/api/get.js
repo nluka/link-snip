@@ -1,18 +1,12 @@
 const express = require('express');
-const Url = require('../../models/Url');
+const database = require('../../database');
+const STATUS_CODES = require('../../utilities/status-codes');
 
 const router = express.Router();
 
-module.exports = router.get('/', async (req, res) => {
-  const urls = await Url.find();
-  const responseJson = [];
-  urls.forEach((url) => {
-    responseJson.push({
-      name: url.name,
-      full: url.full,
-      short: url.short,
-      clicks: url.clicks,
-    });
-  });
-  res.json(responseJson);
+router.get('/', async (req, res) => {
+  const urls = await database.urlGetAll();
+  res.status(STATUS_CODES.OK).json(urls);
 });
+
+module.exports = router;
