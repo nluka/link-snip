@@ -1,9 +1,9 @@
 const express = require('express');
-const Url = require('../models/Url');
+const database = require('../database');
 
 const router = express.Router();
 
 module.exports = router.get('/', async (req, res) => {
-  const urls = await Url.find();
+  const urls = await database.urlGetAll();
   res.render('index.ejs', { urls });
 });

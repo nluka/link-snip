@@ -23,7 +23,7 @@ async function urlGetAll() {
 }
 
 async function urlDoesShortExist(short) {
-  const result = await pool.query('select * from urls where (short = $1);', [
+  const result = await pool.query('select * from urls where short = $1;', [
     short,
   ]);
   return result.rowCount > 0;
@@ -46,10 +46,9 @@ async function urlCreate(name, actual, short) {
 }
 
 async function urlDelete(short) {
-  const result = await query(
-    'delete from urls where (short = $1) returning *;',
-    [short]
-  );
+  const result = await query('delete from urls where short = $1 returning *;', [
+    short,
+  ]);
 
   const deletedUrl = result.rows[0];
 
@@ -92,8 +91,25 @@ async function urlPatch(short, newName = null, newActual = null) {
   };
 }
 
+async function urlGetFromShort(short) {
+  const result = await query('select * from urls where short = $1;', [short]);
+
+  if (result.rowCount === 0) {
+    return null;
+  }
+
+  const row = result.rows[0];
+
+  return {
+    name: row.name,
+    actual: row.actual,
+    short: row.short,
+    clicks: row.clicks,
+  };
+}
+
 async function urlGetActualFromShort(short) {
-  const result = await query('select actual from urls where (short = $1);', [
+  const result = await query('select actual from urls where short = $1;', [
     short,
   ]);
   if (result.rowCount === 0) {
@@ -113,6 +129,7 @@ module.exports = {
   urlCreate,
   urlDelete,
   urlPatch,
+  urlGetFromShort,
   urlGetActualFromShort,
   urlIncrementClicks,
 };
