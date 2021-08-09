@@ -1,4 +1,4 @@
-const { isEnvironmentProduction } = require('./isEnvironmentProduction');
+const isEnvironmentProduction = require('./isEnvironmentProduction');
 
 const DEV_PORT = 3000;
 const BASE_URL = isEnvironmentProduction()

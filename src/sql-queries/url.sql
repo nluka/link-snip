@@ -22,4 +22,6 @@ insert into urls (
 
 select * from urls where (short = 'yt');
 
+update urls set name = 'Google', actual = 'https://www.google.com/' where short = 'yt' returning *;
+
 delete from urls where (short = 'yt') returning *;
