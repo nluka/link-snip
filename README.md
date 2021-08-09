@@ -8,6 +8,7 @@ A public URL shortener REST API with client. Built with Express, PostgreSQL, EJS
   - [Create new URL](#create-new-url)
   - [Update existing URL](#update-existing-url)
   - [Delete existing URL](#delete-existing-url)
+  - [Standard Error Response](#standard-error-response)
 
 ## Servers
 
@@ -48,7 +49,7 @@ POST /api/create
 
 | Parameter         | Type     | Description                                |
 | ----------------- | -------- | ------------------------------------------ |
-| short (required)  | `string` | The shortened URL, must not already exist. |
+| short (required)  | `string` | The short URL, must not already exist. |
 | actual (required) | `string` | The full URL.                              |
 
 #### Response
@@ -73,7 +74,7 @@ PATCH /api/update
 
 | Parameter        | Type     | Description                    |
 | ---------------- | -------- | ------------------------------ |
-| short (required) | `string` | The shortened URL, must exist. |
+| short (required) | `string` | The short URL, must exist. |
 | \*name           | `string` | The new short name.            |
 | \*actual         | `string` | The new full URL.              |
 
@@ -101,7 +102,7 @@ DELETE /api/delete
 
 | Parameter        | Type     | Description                    |
 | ---------------- | -------- | ------------------------------ |
-| short (required) | `string` | The shortened URL, must exist. |
+| short (required) | `string` | The short URL, must exist. |
 
 #### Response
 
@@ -112,5 +113,17 @@ DELETE /api/delete
   "actual": String
   "short": String
   "clicks": Number
+}
+```
+
+### Standard Error Response
+
+Request related errors will have a status code of 400 (Bad Request) and will contain an array of strings describing the issues with the request.
+
+```ts
+{
+  "data": {
+    "errors": String[]
+  }
 }
 ```
