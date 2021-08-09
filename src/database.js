@@ -13,6 +13,7 @@ const pool = new Pool({
   connectionString: isEnvironmentProduction()
     ? productionConfig
     : developmentConfig,
+  ssl: true,
 });
 
 function query(text, params) {
