@@ -7,10 +7,6 @@ const handleError = require('./middleware/handleError');
 // const editRouter = require('./routes/edit/edit');
 // const shortUrlRouter = require('./routes/short/shortUrl');
 const apiRootRouter = require('./routes/api/root');
-const apiGetRouter = require('./routes/api/get');
-const apiCreateRouter = require('./routes/api/create');
-const apiDeleteRouter = require('./routes/api/delete');
-const apiPatchRouter = require('./routes/api/patch');
 
 const app = express();
 
@@ -29,10 +25,6 @@ app.use(express.static('public'));
 // app.use('/edit/', editRouter);
 // app.use('/short/', shortUrlRouter);
 app.use('/api/', apiRootRouter);
-app.use('/api/get', apiGetRouter);
-app.use('/api/create', apiCreateRouter);
-app.use('/api/delete', apiDeleteRouter);
-app.use('/api/patch', apiPatchRouter);
 
 app.use(handleError);
 

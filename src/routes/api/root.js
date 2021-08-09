@@ -1,9 +1,14 @@
 const express = require('express');
+const apiGetRouter = require('./get');
+const apiPostRouter = require('./post');
+const apiPatchRouter = require('./patch');
+const apiDeleteRouter = require('./delete');
 
-const router = express.Router();
+const rootRouter = express.Router();
 
-router.get('/', (req, res) => {
-  res.redirect('https://github.com/nluka/url-y');
-});
+rootRouter.get('/', apiGetRouter);
+rootRouter.post('/', apiPostRouter);
+rootRouter.patch('/', apiPatchRouter);
+rootRouter.delete('/', apiDeleteRouter);
 
-module.exports = router;
+module.exports = rootRouter;
