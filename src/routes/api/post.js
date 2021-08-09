@@ -1,5 +1,6 @@
 const express = require('express');
 const database = require('../../database');
+const isValidHttpUrl = require('../../utilities/isValidHttpUrl');
 const STATUS_CODES = require('../../utilities/status-codes');
 
 const router = express.Router();
@@ -31,6 +32,8 @@ async function pushCreateErrors(name, actual, short, errors) {
   }
   if (typeof actual !== 'string') {
     errors.push('actual must be a string');
+  } else if (!isValidHttpUrl(actual)) {
+    errors.push('actual must be a valid HTTP URL');
   }
   if (typeof short !== 'string') {
     errors.push('short must be a string');
