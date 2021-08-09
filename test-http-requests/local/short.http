@@ -1,0 +1,5 @@
+GET http://localhost:3000/short/yt HTTP/1.1
+
+###
+
+GET http://localhost:3000/short/ggl HTTP/1.1
