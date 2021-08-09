@@ -1,46 +1,53 @@
 const express = require('express');
-const Url = require('../../models/Url');
-const createError = require('http-errors');
-const statusCode = require('../../status-code');
+const database = require('../../database');
+const STATUS_CODES = require('../../utilities/status-codes');
 
 const router = express.Router();
 
-module.exports = router.patch('/', async (req, res, next) => {
-  if (req.body.shortUrl === undefined) {
-    return next(
-      createError(statusCode.UNPROCESSABLE_ENTITY, 'shortUrl is required.')
+router.patch('/', async (req, res, next) => {
+  const errors = [];
+  await pushPatchErrors(
+    req.body.short,
+    req.body.newName,
+    req.body.newActual,
+    errors
+  );
+  if (errors.length > 0) {
+    return next({ status: STATUS_CODES.BAD_REQUEST, data: { errors } });
+  }
+
+  let patchedUrl;
+  try {
+    patchedUrl = await database.urlPatch(
+      req.body.short,
+      req.body.newName,
+      req.body.newActual
     );
+  } catch (err) {
+    return next({});
   }
 
-  let url = await Url.findOne({ short: req.body.shortUrl });
-
-  if (url === null) {
-    return next(
-      createError(statusCode.UNPROCESSABLE_ENTITY, 'shortUrl does not exist.')
-    );
-  }
-  if (req.body.newName === undefined && req.body.newFullUrl === undefined) {
-    return next(
-      createError(
-        statusCode.BAD_REQUEST,
-        'No values for newName or newFullUrl were provided. At least 1 value is required.'
-      )
-    );
-  }
-
-  if (req.body.newName !== undefined) {
-    url.name = req.body.newName;
-  }
-  if (req.body.newFullUrl !== undefined) {
-    url.full = req.body.newFullUrl;
-  }
-
-  await url.save();
-
-  res.status(statusCode.OK).json({
-    name: url.name,
-    full: url.full,
-    short: url.short,
-    clicks: url.clicks,
-  });
+  res.status(STATUS_CODES.OK).json(patchedUrl);
 });
+
+async function pushPatchErrors(short, newName, newActual, errors) {
+  if (typeof short !== 'string') {
+    errors.push('short must be a string');
+  } else if (!(await database.urlDoesShortExist(short))) {
+    errors.push('short already exists');
+  }
+
+  if (newName === undefined && newActual === undefined) {
+    errors.push('at least one of newName or newActual must be provided');
+    return;
+  }
+
+  if (newName !== undefined && typeof newName !== 'string') {
+    errors.push('newName must be a string');
+  }
+  if (newActual !== undefined && typeof newActual !== 'string') {
+    errors.push('newActual must be a string');
+  }
+}
+
+module.exports = router;
