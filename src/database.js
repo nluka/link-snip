@@ -1,23 +1,19 @@
 const { Pool } = require('pg');
-const isEnvironementProduction = require('./utilities/isEnvironmentProduction');
+const isEnvironmentProduction = require('./utilities/isEnvironmentProduction');
 
-if (!isEnvironementProduction()) {
+if (!isEnvironmentProduction()) {
   require('dotenv').config();
 }
 
-const developmentConfig = {
-  database: process.env.DATABASE_NAME,
-  user: process.env.DATABASE_USER,
-  password: process.env.DATABASE_PASSWORD,
-};
+const developmentConfig = `postgresql://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}:${process.env.DATABASE_PORT}/${process.env.DATABASE_NAME}`;
 
-const productionConfig = {
-  connectionString: process.env.DATABASE_URL,
-};
+const productionConfig = process.env.DATABASE_URL;
 
-const pool = new Pool(
-  isEnvironementProduction() ? productionConfig : developmentConfig
-);
+const pool = new Pool({
+  connectionString: isEnvironmentProduction()
+    ? productionConfig
+    : developmentConfig,
+});
 
 function query(text, params) {
   return pool.query(text, params);
