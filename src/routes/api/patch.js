@@ -1,5 +1,6 @@
 const express = require('express');
 const database = require('../../database');
+const isValidHttpUrl = require('../../utilities/isValidHttpUrl');
 const STATUS_CODES = require('../../utilities/status-codes');
 
 const router = express.Router();
@@ -42,11 +43,18 @@ async function pushPatchErrors(short, newName, newActual, errors) {
     return;
   }
 
-  if (newName !== undefined && typeof newName !== 'string') {
-    errors.push('newName must be a string');
+  if (newName !== undefined) {
+    if (typeof newName !== 'string') {
+      errors.push('newName must be a string');
+    }
   }
-  if (newActual !== undefined && typeof newActual !== 'string') {
-    errors.push('newActual must be a string');
+
+  if (newActual !== undefined) {
+    if (typeof newActual !== 'string') {
+      errors.push('newActual must be a string');
+    } else if (!isValidHttpUrl(newActual)) {
+      errors.push('newActual must be a valid HTTP URL');
+    }
   }
 }
 
