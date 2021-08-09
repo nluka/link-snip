@@ -92,6 +92,20 @@ async function urlPatch(short, newName = null, newActual = null) {
   };
 }
 
+async function urlGetActualFromShort(short) {
+  const result = await query('select actual from urls where (short = $1);', [
+    short,
+  ]);
+  if (result.rowCount === 0) {
+    return null;
+  }
+  return result.rows[0].actual;
+}
+
+async function urlIncrementClicks(short) {
+  await query('update urls set clicks = clicks + 1 where short = $1;', [short]);
+}
+
 module.exports = {
   query,
   urlGetAll,
@@ -99,4 +113,6 @@ module.exports = {
   urlCreate,
   urlDelete,
   urlPatch,
+  urlGetActualFromShort,
+  urlIncrementClicks,
 };

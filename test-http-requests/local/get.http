@@ -1,5 +1,0 @@
-GET http://localhost:3000/yt HTTP/1.1
-
-###
-
-GET http://localhost:3000/ggl HTTP/1.1
