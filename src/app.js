@@ -3,8 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const handleError = require('./middleware/handleError');
 
-// const indexRouter = require('./routes/index');
-// const editRouter = require('./routes/edit/edit');
+const indexRouter = require('./routes/index');
+const editRouter = require('./routes/edit/edit');
 const shortRouter = require('./routes/short/short');
 const apiRouter = require('./routes/api/root');
 
@@ -21,8 +21,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 // Routes
-// app.use('/', indexRouter);
-// app.use('/edit/', editRouter);
+app.use('/', indexRouter);
+app.use('/edit/', editRouter);
 app.use('/short/', shortRouter);
 app.use('/api/', apiRouter);
 

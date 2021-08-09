@@ -1,106 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>LinkSnip | Home</title>
+    <link rel="icon" type="image/png" href="/icons/link.svg" />
+
+    <!-- Metadata -->
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>url-y | Home</title>
+    <meta name="title" property="og:title" content="LinkSnip | Home" />
+    <meta property="og:type" content="Website" />
+    <meta name="author" content="Nicholas Lukasevich" />
+
+    <meta name="image" property="og:image" content="/images/banner.png" />
     <meta
       name="description"
       content="A URL Shortener with a RESTful API powered by MongoDB, and a front-end utilizing EJS."
     />
-    <meta name="title" property="og:title" content="url-y" />
-    <meta property="og:type" content="Website" />
-    <!-- <meta name="image" property="og:image" content="/images/preview-home.png" /> -->
     <meta
       name="description"
       property="og:description"
-      content="A URL Shortener with a RESTful API powered by MongoDB, and a front-end utilizing EJS."
+      content="A public URL shortener REST API and client. Built with Express, PostgreSQL and EJS."
     />
-    <meta name="author" content="Nicholas Lukasevich" />
-    <link rel="icon" type="image/png" href="/icons/share-fill.svg" />
+
+    <!-- CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="/index.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/index/form.css" />
+    <link rel="stylesheet" href="/css/index/table.css" />
+
+    <!-- Scripts -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
       integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
       crossorigin="anonymous"
       defer
     ></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
-    <script src="/index.js" defer></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/js/index/main.js" type="module" defer></script>
+    <script src="/js/index/form.js" type="module" defer></script>
+    <script src="/js/urlInputValidationHandler.js" type="module" defer></script>
+    <script
+      src="/js/toggleFormSubmitButtonState.js"
+      type="module"
+      defer
+    ></script>
+    <script src="/js/index/table.js" type="module" defer></script>
   </head>
+
   <body>
     <%- include('./partials/header.ejs') %>
     <main class="container">
-      <form id="formUrlCreate" class="mb-4 mb-sm-5">
+      <form id="urlPost" class="mb-4 mb-sm-5">
         <fieldset class="mb-3">
           <legend class="mb-3">Create new shortened URL</legend>
           <div class="row">
-            <!-- Name Input -->
-            <div class="col-md-3 col-sm-12">
+            <!-- Actual -->
+            <div class="col-md-3 col-sm-12 mb-3">
               <div class="form-floating">
                 <input
-                  type="text"
-                  name="name"
-                  id="inputUrlName"
-                  placeholder="Name"
-                  required
+                  id="urlActual"
                   class="form-control"
-                />
-                <label for="inputUrlName" aria-required="true">Name</label>
-              </div>
-            </div>
-
-            <!-- Full URL Input -->
-            <div class="col-md-3 col-sm-12">
-              <div class="form-floating">
-                <input
                   type="text"
-                  name="fullUrl"
-                  id="inputUrlFull"
+                  name="actual"
                   placeholder="Full URL"
                   required
-                  class="form-control"
+                  autofocus
                 />
-                <label for="inputUrlFull" aria-required="true">Full URL</label>
+                <label for="urlActual" aria-required="true">Full URL</label>
+                <div id="urlActualFeedback" class="invalid-feedback mt-1"></div>
               </div>
             </div>
 
-            <!-- Short URL Input -->
-            <div class="col-md-3 col-sm-12">
+            <!-- Name -->
+            <div class="col-md-3 col-sm-12 mb-3">
               <div class="form-floating">
                 <input
-                  type="text"
-                  name="shortUrl"
-                  id="inputUrlShort"
-                  placeholder="Short URL"
-                  required
+                  id="urlName"
                   class="form-control"
+                  type="text"
+                  name="name"
+                  placeholder="Name (1-8 letters/numbers)"
+                  required
+                />
+                <label for="urlName" aria-required="true">Name</label>
+                <div id="urlNameFeedback" class="invalid-feedback mt-1"></div>
+              </div>
+            </div>
+
+            <!-- Short -->
+            <div class="col-md-3 col-sm-12 mb-3">
+              <div class="form-floating">
+                <input
+                  id="urlShort"
+                  class="form-control"
+                  type="text"
+                  name="short"
+                  placeholder="Short URL"
                   autocapitalize="off"
                   autocomplete="off"
                   spellcheck="false"
+                  required
                 />
-                <label for="inputUrlShort" aria-required="true"
-                  >Short URL</label
-                >
-                <div id="divUrlShortFeedback" class="mt-1">
-                  Short URL already exists.
-                </div>
+                <label for="urlShort" aria-required="true">Short URL</label>
+                <div id="urlShortFeedback" class="invalid-feedback mt-1"></div>
               </div>
             </div>
 
-            <!-- Submit Button -->
-            <div class="col-md-3 col-sm-12">
+            <!-- Submit -->
+            <div class="col-md-3 col-sm-12 mb-3">
               <button
                 type="submit"
-                id="buttonCreateUrl"
-                class="btn btn-primary"
+                id="urlPostSubmit"
+                class="
+                  btn btn-lg btn-dark
+                  d-flex
+                  justify-content-center
+                  align-items-center
+                  w-100
+                "
               >
                 Shorten
               </button>
@@ -111,14 +134,14 @@
 
       <h2 class="mb-3">Stored URLs</h2>
       <div class="table-wrapper table-responsive shadow-sm mb-4 mb-sm-5">
-        <table class="table">
+        <table class="table mb-0">
           <thead>
             <tr>
               <th>Name</th>
               <th>Full URL</th>
               <th>Short URL</th>
               <th>Clicks</th>
-              <th class="td-url-action">Actions</th>
+              <th class="url-action">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -126,25 +149,27 @@
             <tr class="align-middle">
               <td><%= url.name %></td>
               <td>
-                <a href="<%= url.full %>" target="_blank"><%= url.full %></a>
+                <a href="<%= url.actual %>" target="_blank"
+                  ><%= url.actual %></a
+                >
               </td>
-              <td class="td-url-short" onclick="e => console.log(e.target)">
-                <div class="div-container-url-short">
-                  <button class="btn btn-light btn-url-short-copy"></button>
-                  <div class="div-text-url-short"><%= url.short %></div>
+              <td class="url-short">
+                <div class="url-short-wrapper">
+                  <button class="btn btn-light url-short-copy"></button>
+                  <div class="url-short-text"><%= url.short %></div>
                 </div>
               </td>
               <td><%= url.clicks %></td>
-              <td class="td-url-action">
+              <td class="url-action">
                 <button
                   data-url-short="<%= url.short %>"
-                  class="button-url-edit btn btn-secondary m-1"
+                  class="url-edit btn btn-secondary m-1"
                 >
                   Edit
                 </button>
                 <button
                   data-url-short="<%= url.short %>"
-                  class="button-url-delete btn btn-danger m-1"
+                  class="url-delete btn btn-danger m-1"
                 >
                   Delete
                 </button>

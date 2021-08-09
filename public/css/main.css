@@ -1,0 +1,17 @@
+/* button:is(:disabled, [disabled='true']):hover {
+  cursor: not-allowed !important;
+} */
+
+h2 {
+  font-size: calc(1.275rem + 0.3vw);
+  font-weight: normal;
+}
+
+input.form-control:read-only {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+.invalid-feedback[data-visible='true'] {
+  display: block;
+}

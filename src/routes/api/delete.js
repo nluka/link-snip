@@ -19,7 +19,6 @@ router.delete('/', async (req, res, next) => {
 
 async function pushDeleteErrors(short, errors) {
   await pushShortErrors(short, errors, { existenceComparer: false });
-  console.log(errors);
 }
 
 module.exports = router;

@@ -1,6 +1,6 @@
-# url-y
+# LinkSnip
 
-A URL shortener with a REST api and front-end. Built with Node.js, Express, MongoDB, Bootstrap 5.
+A public URL shortener REST API with client. Built with Express, PostgreSQL, EJS and Bootstrap 5.
 
 - [Servers](#servers)
 - [API Reference](#api-reference)
