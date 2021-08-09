@@ -11,8 +11,8 @@ Content-Type: application/json
 
 {
   "name": "YouTube",
-  "fullUrl": "https://www.youtube.com/",
-  "shortUrl": "yt"
+  "actual": "https://www.youtube.com/",
+  "short": "yt"
 }
 
 ###
@@ -21,7 +21,7 @@ DELETE http://localhost:3000/api/delete HTTP/1.1
 Content-Type: application/json
 
 {
-  "shortUrl": "ggl"
+  "short": "ggl"
 }
 
 ###
@@ -30,7 +30,7 @@ PATCH http://localhost:3000/api/patch HTTP/1.1
 Content-Type: application/json
 
 {
-  "shortUrl": "yt",
-  "newShortUrl": "ggl",
-  "newFullUrl": "https://www.gglresourcescorp.com/"
+  "short": "yt",
+  "newShort": "ggl",
+  "newActual": "https://www.gglresourcescorp.com/"
 }

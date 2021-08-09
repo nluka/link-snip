@@ -1,4 +1,4 @@
-const statusCode = {
+const STATUS_CODES = {
   OK: 200,
   CREATED: 201,
   BAD_REQUEST: 400,
@@ -7,4 +7,4 @@ const statusCode = {
   UNPROCESSABLE_ENTITY: 422,
 };
 
-module.exports = statusCode;
+module.exports = STATUS_CODES;
