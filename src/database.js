@@ -61,10 +61,42 @@ async function urlDelete(short) {
   };
 }
 
+async function urlPatch(short, newName = null, newActual = null) {
+  let queryText, queryParams;
+
+  if (newName !== null && newActual !== null) {
+    queryText =
+      'update urls set name = $1, actual = $2 where short = $3 returning *;';
+    queryParams = [newName, newActual, short];
+  } else if (newName !== null) {
+    queryText = 'update urls set name = $1 where short = $2 returning *;';
+    queryParams = [newName, short];
+  } else if (newActual !== null) {
+    queryText = 'update urls set actual = $1 where short = $2 returning *;';
+    queryParams = [newActual, short];
+  } else {
+    throw new Error(
+      `at least one of 'newName' or 'newActual' must be provided`
+    );
+  }
+
+  const result = await query(queryText, queryParams);
+
+  const patchedUrl = result.rows[0];
+
+  return {
+    name: patchedUrl.name,
+    actual: patchedUrl.actual,
+    short: patchedUrl.short,
+    clicks: patchedUrl.clicks,
+  };
+}
+
 module.exports = {
   query,
   urlGetAll,
   urlDoesShortExist,
   urlCreate,
   urlDelete,
+  urlPatch,
 };

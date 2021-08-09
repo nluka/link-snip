@@ -10,7 +10,7 @@ const handleError = require('./middleware/handleError');
 const apiGetRouter = require('./routes/api/get');
 const apiCreateRouter = require('./routes/api/create');
 const apiDeleteRouter = require('./routes/api/delete');
-// const apiPatchRouter = require('./routes/api/patch');
+const apiPatchRouter = require('./routes/api/patch');
 
 const app = express();
 
@@ -32,7 +32,7 @@ app.use(express.static('public'));
 app.use('/api/get', apiGetRouter);
 app.use('/api/create', apiCreateRouter);
 app.use('/api/delete', apiDeleteRouter);
-// app.use('/api/patch', apiPatchRouter);
+app.use('/api/patch', apiPatchRouter);
 
 app.use(handleError);
 
