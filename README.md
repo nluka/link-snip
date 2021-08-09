@@ -4,20 +4,20 @@ A URL shortener with a REST api and front-end. Built with Node.js, Express, Mong
 
 - [Servers](#servers)
 - [API Reference](#api-reference)
-  - [Get all shortened URLs](#get-all-shortened-urls)
-  - [Add new URL](#add-new-url)
+  - [Get all URLs](#get-all-urls)
+  - [Create new URL](#create-new-url)
   - [Update existing URL](#update-existing-url)
   - [Delete existing URL](#delete-existing-url)
 
 ## Servers
 
-| Name       | URL                                                          | Description                                                                                                                 |
-| ---------- | ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| Name       | URL                                                                  | Description                                                                                                                 |
+| ---------- | -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | Production | [https://link-snip.herokuapp.com/](https://link-snip.herokuapp.com/) | The primary server. Note that it may take some time to respond to the first call, as the free heroku server is starting up. |
 
 ## API Reference
 
-### Get all shortened URLs
+### Get all URLs
 
 ```HTTP
 GET /api/
@@ -29,16 +29,16 @@ GET /api/
 // An array of the currently stored URLs
 [
   {
-    "name": string
-    "shortUrl": string
-    "fullUrl": string
-    "clicks": number
+    "name": String
+    "actual": String
+    "short": String
+    "clicks": Number
   },
   ...
 ]
 ```
 
-### Add new URL
+### Create new URL
 
 ```HTTP
 POST /api/create
@@ -46,20 +46,20 @@ POST /api/create
 
 #### Query parameters
 
-| Parameter           | Type     | Description                                |
-| ------------------- | -------- | ------------------------------------------ |
-| shortUrl (required) | `string` | The shortened URL, must not already exist. |
-| fullUrl (required)  | `string` | The full URL.                              |
+| Parameter         | Type     | Description                                |
+| ----------------- | -------- | ------------------------------------------ |
+| short (required)  | `string` | The shortened URL, must not already exist. |
+| actual (required) | `string` | The full URL.                              |
 
 #### Response
 
 ```ts
-// The new item
+// The new URL
 {
-  "name": string
-  "shortUrl": string
-  "fullUrl": string
-  "clicks": 0
+  "name": String,
+  "actual": String,
+  "short": String,
+  "clicks": 0,
 }
 ```
 
@@ -71,23 +71,23 @@ PATCH /api/update
 
 #### Query parameters
 
-| Parameter           | Type     | Description                    |
-| ------------------- | -------- | ------------------------------ |
-| shortUrl (required) | `string` | The shortened URL, must exist. |
-| \*newName           | `string` | The new short name.            |
-| \*newFullUrl        | `string` | The new full URL.              |
+| Parameter        | Type     | Description                    |
+| ---------------- | -------- | ------------------------------ |
+| short (required) | `string` | The shortened URL, must exist. |
+| \*newName        | `string` | The new short name.            |
+| \*newActual      | `string` | The new full URL.              |
 
-\*At least one tagged parameters must be provided.
+\*At least one tagged parameter must be provided.
 
 #### Response
 
 ```ts
-// The updated item
+// The updated URL
 {
-  "name": string
-  "shortUrl": string
-  "fullUrl": string
-  "clicks": number
+  "name": String
+  "actual": String
+  "short": String
+  "clicks": Number
 }
 ```
 
@@ -99,18 +99,18 @@ DELETE /api/delete
 
 #### Query parameters
 
-| Parameter           | Type     | Description                    |
-| ------------------- | -------- | ------------------------------ |
-| shortUrl (required) | `string` | The shortened URL, must exist. |
+| Parameter        | Type     | Description                    |
+| ---------------- | -------- | ------------------------------ |
+| short (required) | `string` | The shortened URL, must exist. |
 
 #### Response
 
 ```ts
-// The deleted item
+// The deleted URL
 {
-  "name": string
-  "shortUrl": string
-  "fullUrl": string
-  "clicks": number
+  "name": String
+  "actual": String
+  "short": String
+  "clicks": Number
 }
 ```

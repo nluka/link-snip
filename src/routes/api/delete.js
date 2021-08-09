@@ -1,31 +1,38 @@
 const express = require('express');
-const Url = require('../../models/Url');
-const createError = require('http-errors');
-const statusCode = require('../../status-code');
+const { doesShortExist } = require('../../database');
+const STATUS_CODES = require('../../utilities/status-codes');
+const database = require('../../database');
 
 const router = express.Router();
 
-module.exports = router.delete('/', async (req, res, next) => {
-  if (req.body.shortUrl === undefined) {
-    return next(
-      createError(statusCode.UNPROCESSABLE_ENTITY, 'shortUrl is required.')
-    );
+router.delete('/', async (req, res, next) => {
+  const errors = [];
+  await pushDeleteErrors(req.body.short, errors);
+  if (errors.length > 0) {
+    return next({ status: STATUS_CODES.BAD_REQUEST, data: { errors } });
   }
 
-  const url = await Url.findOne({ short: req.body.shortUrl });
+  const result = await database.query(
+    'delete from urls where (short = $1) returning *;',
+    [req.body.short]
+  );
 
-  if (url === null) {
-    return next(
-      createError(statusCode.UNPROCESSABLE_ENTITY, 'shortUrl does not exist.')
-    );
-  }
+  const { name, actual, short, clicks } = result.rows[0];
 
-  await url.deleteOne();
-
-  res.status(statusCode.OK).json({
-    name: url.name,
-    full: url.full,
-    short: url.short,
-    clicks: url.clicks,
+  res.status(STATUS_CODES.OK).json({
+    name,
+    actual,
+    short,
+    clicks,
   });
 });
+
+async function pushDeleteErrors(short, errors) {
+  if (typeof short !== 'string') {
+    errors.push('short must be a string');
+  } else if (!(await doesShortExist(short))) {
+    errors.push("short doesn't exist");
+  }
+}
+
+module.exports = router;

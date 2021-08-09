@@ -19,3 +19,5 @@ insert into urls (
 ) returning *;
 
 select * from urls where (short = 'yt');
+
+delete from urls where (short = 'yt') returning *;
