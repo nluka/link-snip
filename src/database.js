@@ -13,7 +13,7 @@ const pool = new Pool({
   connectionString: isEnvironmentProduction()
     ? productionConfig
     : developmentConfig,
-  ssl: true,
+  ssl: { rejectUnauthorized: false },
 });
 
 function query(text, params) {
