@@ -1,5 +1,4 @@
 const express = require('express');
-const { doesShortExist } = require('../../database');
 const database = require('../../database');
 const STATUS_CODES = require('../../utilities/status-codes');
 
@@ -17,19 +16,13 @@ router.post('/', async (req, res, next) => {
     return next({ status: STATUS_CODES.BAD_REQUEST, data: { errors } });
   }
 
-  const result = await database.query(
-    'insert into urls (name, actual, short, clicks) values ($1, $2, $3, $4) returning *;',
-    [req.body.name, req.body.actual, req.body.short, 0]
+  const createdUrl = await database.urlCreate(
+    req.body.name,
+    req.body.actual,
+    req.body.short
   );
 
-  const { name, actual, short, clicks } = result.rows[0];
-
-  res.status(STATUS_CODES.CREATED).json({
-    name,
-    actual,
-    short,
-    clicks,
-  });
+  res.status(STATUS_CODES.CREATED).json(createdUrl);
 });
 
 async function pushCreateErrors(name, actual, short, errors) {
@@ -41,7 +34,7 @@ async function pushCreateErrors(name, actual, short, errors) {
   }
   if (typeof short !== 'string') {
     errors.push('short must be a string');
-  } else if (await doesShortExist(short)) {
+  } else if (await database.urlDoesShortExist(short)) {
     errors.push('short already exists');
   }
 }

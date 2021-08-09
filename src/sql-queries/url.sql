@@ -6,6 +6,8 @@ create table urls (
   primary key (short)
 );
 
+select * from urls;
+
 insert into urls (
   name,
   actual,
