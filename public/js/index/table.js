@@ -3,23 +3,33 @@ export default function initUrlTable() {
   addUrlEditButtonListeners();
 }
 
+let copyToClipboardButtonTimeout;
+
 function addUrlShortTextCopyToClipboardButtonListeners() {
   const urlShort_tds = document.querySelectorAll('td.url-short');
 
   urlShort_tds.forEach((td) => {
     const urlShortText_div = td.querySelector('.url-short-text');
-    const copyToClipboard_button = td.querySelector('.url-short-copy');
+    const copyToClipboard_button = td.querySelector('button.url-short-copy');
 
     copyToClipboard_button.addEventListener('click', () => {
+      if (copyToClipboard_button.classList.contains('copied')) {
+        return;
+      }
+
       navigator.clipboard.writeText(
         `${location.href}short/${urlShortText_div.innerText}`
       );
 
       copyToClipboard_button.classList.add('copied');
+      copyToClipboardButtonTimeout = setTimeout(() => {
+        copyToClipboard_button.classList.remove('copied');
+      }, 2000);
 
       copyToClipboard_button.addEventListener(
         'blur',
         () => {
+          clearTimeout(copyToClipboardButtonTimeout);
           copyToClipboard_button.classList.remove('copied');
         },
         { once: true }
