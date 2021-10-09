@@ -25,7 +25,7 @@ function query(text, params) {
 }
 
 async function urlGetAll() {
-  const result = await pool.query('select * from urls;');
+  const result = await pool.query('SELECT * FROM urls;');
   return result.rows.map((row) => {
     return {
       name: row.name,
@@ -37,7 +37,7 @@ async function urlGetAll() {
 }
 
 async function urlDoesShortExist(short) {
-  const result = await pool.query('select * from urls where short = $1;', [
+  const result = await pool.query('SELECT * FROM urls WHERE short = $1;', [
     short,
   ]);
   return result.rowCount > 0;
@@ -45,7 +45,7 @@ async function urlDoesShortExist(short) {
 
 async function urlCreate(name, actual, short) {
   const result = await query(
-    'insert into urls (name, actual, short, clicks) values ($1, $2, $3, $4) returning *;',
+    'INSERT INTO urls (name, actual, short, clicks) VALUES ($1, $2, $3, $4) RETURNING *;',
     [name, actual, short, 0]
   );
 
@@ -60,7 +60,7 @@ async function urlCreate(name, actual, short) {
 }
 
 async function urlDelete(short) {
-  const result = await query('delete from urls where short = $1 returning *;', [
+  const result = await query('DELETE FROM urls WHERE short = $1 RETURNING *;', [
     short,
   ]);
 
@@ -79,13 +79,13 @@ async function urlPatch(short, newName = null, newActual = null) {
 
   if (newName !== null && newActual !== null) {
     queryText =
-      'update urls set name = $1, actual = $2 where short = $3 returning *;';
+      'UPDATE urls SET name = $1, actual = $2 WHERE short = $3 RETURNING *;';
     queryParams = [newName, newActual, short];
   } else if (newName !== null) {
-    queryText = 'update urls set name = $1 where short = $2 returning *;';
+    queryText = 'UPDATE urls SET name = $1 WHERE short = $2 RETURNING *;';
     queryParams = [newName, short];
   } else if (newActual !== null) {
-    queryText = 'update urls set actual = $1 where short = $2 returning *;';
+    queryText = 'UPDATE urls SET actual = $1 WHERE short = $2 RETURNING *;';
     queryParams = [newActual, short];
   } else {
     throw new Error(
@@ -106,7 +106,7 @@ async function urlPatch(short, newName = null, newActual = null) {
 }
 
 async function urlGetFromShort(short) {
-  const result = await query('select * from urls where short = $1;', [short]);
+  const result = await query('SELECT * FROM urls WHERE short = $1;', [short]);
 
   if (result.rowCount === 0) {
     return null;
@@ -123,7 +123,7 @@ async function urlGetFromShort(short) {
 }
 
 async function urlGetActualFromShort(short) {
-  const result = await query('select actual from urls where short = $1;', [
+  const result = await query('SELECT actual FROM urls WHERE short = $1;', [
     short,
   ]);
   if (result.rowCount === 0) {
@@ -133,7 +133,7 @@ async function urlGetActualFromShort(short) {
 }
 
 async function urlIncrementClicks(short) {
-  await query('update urls set clicks = clicks + 1 where short = $1;', [short]);
+  await query('UPDATE urls SET clicks = clicks + 1 WHERE short = $1;', [short]);
 }
 
 module.exports = {
