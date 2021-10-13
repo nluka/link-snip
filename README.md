@@ -1,4 +1,4 @@
-# LinkSnip
+# Link Snip
 
 A public URL shortener REST API with client. Built with Express, PostgreSQL, EJS and Bootstrap 5.
 
