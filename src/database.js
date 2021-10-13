@@ -11,6 +11,7 @@ const developmentConfig = {
   password: process.env.DATABASE_PASSWORD,
 };
 
+// For Heroku
 const productionConfig = {
   connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false },
@@ -25,7 +26,7 @@ function query(text, params) {
 }
 
 async function urlGetAll() {
-  const result = await pool.query('SELECT * FROM urls;');
+  const result = await query('SELECT * FROM urls;');
   return result.rows.map((row) => {
     return {
       name: row.name,
@@ -37,9 +38,7 @@ async function urlGetAll() {
 }
 
 async function urlDoesShortExist(short) {
-  const result = await pool.query('SELECT * FROM urls WHERE short = $1;', [
-    short,
-  ]);
+  const result = await query('SELECT * FROM urls WHERE short = $1;', [short]);
   return result.rowCount > 0;
 }
 
@@ -88,9 +87,7 @@ async function urlPatch(short, newName = null, newActual = null) {
     queryText = 'UPDATE urls SET actual = $1 WHERE short = $2 RETURNING *;';
     queryParams = [newActual, short];
   } else {
-    throw new Error(
-      `at least one of 'newName' or 'newActual' must be provided`
-    );
+    throw new Error(`'newName' or 'newActual' must be provided`);
   }
 
   const result = await query(queryText, queryParams);
@@ -137,7 +134,6 @@ async function urlIncrementClicks(short) {
 }
 
 module.exports = {
-  query,
   urlGetAll,
   urlDoesShortExist,
   urlCreate,
