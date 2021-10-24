@@ -6,7 +6,7 @@ create table urls (
   primary key (short)
 );
 
--- Create new entry
+-- Create new url
 insert into urls (
   name,
   actual,
@@ -19,20 +19,20 @@ insert into urls (
   0
 ) returning *;
 
--- Get all entries
+-- Get all urls
 select * from urls;
 
--- Get entry from short
+-- Get url by 'short'
 select * from urls where (short = 'yt');
 
--- Get actual from short
+-- Get url 'actual' by 'short'
 select actual from urls where (short = 'yt');
 
--- Patch entry
+-- Patch url
 update urls set name = 'Google', actual = 'https://www.google.com/' where short = 'yt' returning *;
 
--- Increment clicks
+-- Increment url clicks
 update urls set clicks = clicks + 1 where short = 'yt';
 
--- Delete entry from short
+-- Delete url by 'short'
 delete from urls where (short = 'yt') returning *;
