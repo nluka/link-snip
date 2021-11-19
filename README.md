@@ -4,10 +4,10 @@ A public URL shortener REST API with client. Built with Express, PostgreSQL, EJS
 
 - [Servers](#servers)
 - [API Reference](#api-reference)
-  - [Get all URLs](#get-all-urls)
-  - [Create new URL](#create-new-url)
-  - [Update existing URL](#update-existing-url)
-  - [Delete existing URL](#delete-existing-url)
+  - [Get All URLs](#get-all-urls)
+  - [Create New URL](#create-new-url)
+  - [Update Existing URL](#update-existing-url)
+  - [Delete Existing URL](#delete-existing-url)
   - [Standard Error Response](#standard-error-response)
 
 ## Servers
@@ -18,7 +18,7 @@ A public URL shortener REST API with client. Built with Express, PostgreSQL, EJS
 
 ## API Reference
 
-### Get all URLs
+### Get All URLs
 
 ```HTTP
 GET /api/
@@ -39,13 +39,13 @@ GET /api/
 ]
 ```
 
-### Create new URL
+### Create New URL
 
 ```HTTP
 POST /api/create
 ```
 
-#### Query parameters
+#### Query Parameters
 
 | Parameter         | Type     | Description                                |
 | ----------------- | -------- | ------------------------------------------ |
@@ -64,17 +64,17 @@ POST /api/create
 }
 ```
 
-### Update existing URL
+### Update Existing URL
 
 ```HTTP
 PATCH /api/update
 ```
 
-#### Query parameters
+#### Query Parameters
 
 | Parameter        | Type     | Description                    |
 | ---------------- | -------- | ------------------------------ |
-| short (required) | `string` | The short URL, must exist. |
+| short (required) | `string` | The short URL, must exist.     |
 | \*name           | `string` | The new short name.            |
 | \*actual         | `string` | The new full URL.              |
 
@@ -92,13 +92,13 @@ PATCH /api/update
 }
 ```
 
-### Delete existing URL
+### Delete Existing URL
 
 ```HTTP
 DELETE /api/delete
 ```
 
-#### Query parameters
+#### Query Parameters
 
 | Parameter        | Type     | Description                    |
 | ---------------- | -------- | ------------------------------ |
