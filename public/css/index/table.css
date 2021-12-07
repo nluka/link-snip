@@ -8,6 +8,21 @@ td {
   white-space: nowrap;
 }
 
+.url-actual-wrapper {
+  overflow-x: auto;
+  max-width: 25ch;
+}
+@media only screen and (min-width: 600px) {
+  .url-actual-wrapper {
+    max-width: 50ch;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .url-actual-wrapper {
+    max-width: 75ch;
+  }
+}
+
 .url-short-wrapper {
   display: flex;
 }

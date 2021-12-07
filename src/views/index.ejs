@@ -145,9 +145,11 @@
             <tr class="align-middle">
               <td><%= url.name %></td>
               <td>
-                <a href="<%= url.actual %>" target="_blank"
-                  ><%= url.actual %></a
-                >
+                <div class="url-actual-wrapper">
+                  <a href="<%= url.actual %>" target="_blank">
+                    <%= url.actual %>
+                  </a>
+                </div>
               </td>
               <td class="url-short">
                 <div class="url-short-wrapper">
