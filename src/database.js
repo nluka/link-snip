@@ -1,5 +1,5 @@
 const { Pool } = require('pg');
-const isEnvironmentProduction = require("./utility/isEnvironmentProduction");
+const isEnvironmentProduction = require('./utilities/isEnvironmentProduction');
 
 if (!isEnvironmentProduction()) {
   require('dotenv').config();

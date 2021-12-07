@@ -1,5 +1,5 @@
 const express = require('express');
-const STATUS_CODES = require("nluka-http-response-status-codes");
+const STATUS_CODES = require('../../utilities/status-codes');
 const database = require('../../database');
 const { pushShortErrors } = require('../../validators/pushShortErrors');
 
