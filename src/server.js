@@ -1,5 +1,5 @@
 const app = require('./app');
-const isEnvironmentProduction = require('./utilities/isEnvironmentProduction');
+const isEnvironmentProduction = require("./utility/isEnvironmentProduction");
 
 if (!isEnvironmentProduction()) {
   require('dotenv').config();

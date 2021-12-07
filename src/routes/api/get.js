@@ -1,6 +1,6 @@
 const express = require('express');
 const database = require('../../database');
-const STATUS_CODES = require('../../utilities/status-codes');
+const STATUS_CODES = require("nluka-http-response-status-codes");
 
 const router = express.Router();
 

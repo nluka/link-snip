@@ -1,30 +1,29 @@
-import STATUS_CODES from '../status-codes.js';
-import toggleFormSubmitButtonState from '../toggleFormSubmitButtonState.js';
-import urlInputValidationHandler from '../urlInputValidationHandler.js';
+import toggleFormSubmitButtonState from "../toggleFormSubmitButtonState.js";
+import urlInputValidationHandler from "../urlInputValidationHandler.js";
 
 export default function initUrlEditForm() {
-  urlPatch_form.addEventListener('submit', handleSubmit);
+  urlPatch_form.addEventListener("submit", handleSubmit);
 
-  urlEditCancel_button.addEventListener('click', (event) => {
+  urlEditCancel_button.addEventListener("click", (event) => {
     event.preventDefault();
-    location.replace('/');
+    location.replace("/");
   });
 }
 
-const urlPatch_form = document.querySelector('form#urlPatch');
-const urlName_input = document.querySelector('input#urlName');
-const urlNameFeedback_div = document.getElementById('urlNameFeedback');
-const urlActual_input = document.querySelector('input#urlActual');
-const urlActualFeedback_div = document.getElementById('urlActualFeedback');
-const urlShort_input = document.querySelector('input#urlShort');
-const urlShortFeedback_div = document.getElementById('urlShortFeedback');
+const urlPatch_form = document.querySelector("form#urlPatch");
+const urlName_input = document.querySelector("input#urlName");
+const urlNameFeedback_div = document.getElementById("urlNameFeedback");
+const urlActual_input = document.querySelector("input#urlActual");
+const urlActualFeedback_div = document.getElementById("urlActualFeedback");
+const urlShort_input = document.querySelector("input#urlShort");
+const urlShortFeedback_div = document.getElementById("urlShortFeedback");
 const urlFeedback_divs = [
   urlShortFeedback_div,
   urlNameFeedback_div,
   urlActualFeedback_div,
 ];
-const urlEditSave_button = document.querySelector('button#urlEditSave');
-const urlEditCancel_button = document.querySelector('button#urlEditCancel');
+const urlEditSave_button = document.querySelector("button#urlEditSave");
+const urlEditCancel_button = document.querySelector("button#urlEditCancel");
 
 const urlEditSaveButtonText = urlEditSave_button.innerText;
 
@@ -33,21 +32,21 @@ async function handleSubmit(event) {
 
   toggleFormSubmitButtonState(urlEditSave_button, urlEditSaveButtonText);
 
-  urlShort_input.classList.remove('is-invalid');
-  urlShortFeedback_div.innerText = '';
+  urlShort_input.classList.remove("is-invalid");
+  urlShortFeedback_div.innerText = "";
   urlFeedback_divs.forEach((div) => {
-    div.removeAttribute('data-visible');
+    div.removeAttribute("data-visible");
   });
 
   try {
-    await axios.patch('/api/', {
+    await axios.patch("/api/", {
       short: urlShort_input.value,
       name: urlName_input.value,
       actual: urlActual_input.value,
     });
-    location.replace('/');
+    location.replace("/");
   } catch (err) {
-    if (err.response.status === STATUS_CODES.BAD_REQUEST) {
+    if (err.response.status === 400) {
       handleFormErrors(err.response.data.errors);
     }
   }
@@ -57,7 +56,7 @@ async function handleSubmit(event) {
 
 function handleFormErrors(errors) {
   errors.forEach((err) => {
-    const subject = err.split(' ')[0];
+    const subject = err.split(" ")[0];
     errorSubjectToValidationHandlerMap[subject](err);
   });
 }
@@ -70,7 +69,7 @@ const errorSubjectToValidationHandlerMap = {
 
 function urlShortValidationHandler(error) {
   urlInputValidationHandler(
-    'short',
+    "short",
     error,
     urlShort_input,
     urlShortFeedback_div
@@ -78,12 +77,12 @@ function urlShortValidationHandler(error) {
 }
 
 function urlNameValidationHandler(error) {
-  urlInputValidationHandler('name', error, urlName_input, urlNameFeedback_div);
+  urlInputValidationHandler("name", error, urlName_input, urlNameFeedback_div);
 }
 
 function urlActualValidationHandler(error) {
   urlInputValidationHandler(
-    'actual',
+    "actual",
     error,
     urlActual_input,
     urlActualFeedback_div
