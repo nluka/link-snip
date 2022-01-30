@@ -44,11 +44,9 @@ button.url-short-copy {
   padding: 0.25rem;
   width: 1.5rem;
 }
-
 button.url-short-copy:is(:hover, :focus) {
   border-color: darkgray;
 }
-
 button.url-short-copy.copied {
   background-color: rgba(40, 167, 69, 0.5);
   background-image: url(/icons/clipboard-check.svg);
