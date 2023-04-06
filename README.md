@@ -2,19 +2,12 @@
 
 A public URL shortener REST API with client. Built with Express, PostgreSQL, EJS and Bootstrap 5.
 
-- [Servers](#servers)
 - [API Reference](#api-reference)
   - [Get All URLs](#get-all-urls)
   - [Create New URL](#create-new-url)
   - [Update Existing URL](#update-existing-url)
   - [Delete Existing URL](#delete-existing-url)
   - [Standard Error Response](#standard-error-response)
-
-## Servers
-
-| Name       | URL                                                                  | Description                                                                                                                 |
-| ---------- | -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| Production | [https://link-snip.herokuapp.com/](https://link-snip.herokuapp.com/) | The primary server. Note that it may take some time to respond to the first call, as the free heroku server is starting up. |
 
 ## API Reference
 
